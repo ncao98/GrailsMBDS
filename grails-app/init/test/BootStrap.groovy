@@ -11,12 +11,16 @@ class BootStrap {
     def init = { servletContext ->
         def roleAdmin = new Role(authority: "ROLE_ADMIN").save()
         def roleUser = new Role(authority: "ROLE_USER").save()
+        def roleModerator = new Role(authority: "ROLE_MODERATOR").save()
 
-        def userAdmin = new User(username: "admin", password: "password").save()
-        def userClient = new User(username: "client", password: "password").save()
+        def userAdmin = new User(username:"admin", password:"admin").save()
+        def userClient = new User(username: "user", password:"password").save()
+        def userModerator = new User(username: "moderator", password:"mod").save()
 
-        UserRole.create(userAdmin, roleAdmin, true)
-        UserRole.create(userClient, roleUser, true)
+        UserRole.create(userAdmin, roleAdmin,  true)
+        UserRole.create(userClient, roleUser,   true)
+        UserRole.create(userModerator, roleModerator, true)
+
 
         (1..5).each { index ->
             def annonceInstance = new SaleAd(title: "title " + index,
