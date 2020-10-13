@@ -24,13 +24,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/#">
+                <a class="navbar-brand" href="/tpMBDS">
 		    <asset:image src="grails.svg" alt="Grails Logo"/>
                 </a>
             </div>
             <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
                 <ul class="nav navbar-nav navbar-right">
-                    <g:pageProperty name="page.nav" />
+                    <li class="controller">
+                        <g:link controller="saleAd">Annonces</g:link>
+                    </li>
+                    <li class="controller">
+                        <g:link controller="user">Utilisateurs</g:link>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -23,39 +23,50 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <f:table collection="${userList}"/>
-    <table>
+%{--    <f:table collection="${userList}"/>--}%
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>#</th>
             <th>Username</th>
             <th>SaleAds</th>
+            <th>Mot de passe expiré</th>
+            <th>Compte verrouillé</th>
+            <th>Compte expiré</th>
+            <th>Activé</th>
         </tr>
+        </thead>
         <tbody>
-    <g:each in="${userList}" var="user">
-        <tr>
-            <td>${user.id}</td>
-            <td>${user.username}</td>
-            <td>
-            <g:each in="${user.saleAds}" var="saleAd">
-                <g:link controller="saleAd" action="show" id="${saleAd.id}">
-                    ${saleAd.title}
-                </g:link>
-            </g:each>
-            </td>
-        </tr>
-    </g:each>
-        <tr>
-
-        </tr>
+        <g:each in="${userList}" var="user">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>
+                    <g:each in="${user.saleAds}" var="saleAd">
+                        <table>
+                            <tr>
+                                <td>
+                                    <g:link controller="saleAd" action="show" id="${saleAd.id}">
+                                        ${saleAd.title}
+                                    </g:link>
+                                </td>
+                            </tr>
+                        </table>
+                    </g:each>
+                </td>
+                <td>${user.passwordExpired}</td>
+                <td>${user.accountExpired}</td>
+                <td>${user.accountLocked}</td>
+                <td>${user.enabled}</td>
+            </tr>
+        </g:each>
         </tbody>
     </thead>
     </table>
+</div>
 
-
-    <div class="pagination">
-        <g:paginate total="${userCount ?: 0}"/>
-    </div>
+<div class="pagination">
+    <g:paginate total="${saleAdCount ?: 0}"/>
 </div>
 </body>
 </html>
