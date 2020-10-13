@@ -5,16 +5,16 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'tp.mbds.com.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'tp.mbds.com.UserRole'
 grails.plugin.springsecurity.authority.className = 'tp.mbds.com.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	[pattern: '/**',               access: ['permitAll']],
-	[pattern: '/error',          access: ['permitAll']],
-	[pattern: '/index',          access: ['permitAll']],
-	[pattern: '/index.gsp',      access: ['permitAll']],
-	[pattern: '/shutdown',       access: ['permitAll']],
-	[pattern: '/assets/**',      access: ['permitAll']],
-	[pattern: '/**/js/**',       access: ['permitAll']],
-	[pattern: '/**/css/**',      access: ['permitAll']],
-	[pattern: '/**/images/**',   access: ['permitAll']],
-	[pattern: '/**/favicon.ico', access: ['permitAll']]
+	[pattern: '/**',               access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/error',          access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/index',          access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/index.gsp',      access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/shutdown',       access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/assets/**',      access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/**/js/**',       access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/**/css/**',      access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/**/images/**',   access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/**/favicon.ico', access: ['ROLE_ADMIN','ROLE_MODERATOR']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
