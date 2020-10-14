@@ -30,6 +30,7 @@ class UserController {
 
         try {
             userService.save(user)
+            UserRole.create(user,Role.get(params.role), true)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
@@ -75,7 +76,7 @@ class UserController {
             notFound()
             return
         }
-
+        UserRole.removeAll(User.get(id))
         userService.delete(id)
 
         request.withFormat {
