@@ -49,13 +49,19 @@ class UserController {
         respond userService.get(id)
     }
 
-    def update(User user) {
+    def update() {
+        def user = User.get(params.id)
         if (user == null) {
             notFound()
             return
         }
 
         try {
+            UserRole.removeAll(user)
+            UserRole.create(user,Role.get(params.role), true)
+            if (params.password != ''){
+                user.password = params.password
+            }
             userService.save(user)
         } catch (ValidationException e) {
             respond user.errors, view:'edit'
