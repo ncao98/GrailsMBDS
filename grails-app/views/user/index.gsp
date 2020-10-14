@@ -18,55 +18,55 @@
     </ul>
 </div>
 
-<div id="list-user" class="content scaffold-list" role="main">
-    <h1><g:message code="default.list.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-%{--    <f:table collection="${userList}"/>--}%
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>SaleAds</th>
-            <th>Mot de passe expiré</th>
-            <th>Compte verrouillé</th>
-            <th>Compte expiré</th>
-            <th>Activé</th>
-        </tr>
-        </thead>
-        <tbody>
-        <g:each in="${userList}" var="user">
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>
-                    <g:each in="${user.saleAds}" var="saleAd">
-                        <table>
-                            <tr>
-                                <td>
-                                    <g:link controller="saleAd" action="show" id="${saleAd.id}">
-                                        ${saleAd.title}
-                                    </g:link>
-                                </td>
-                            </tr>
-                        </table>
-                    </g:each>
-                </td>
-                <td>${user.passwordExpired}</td>
-                <td>${user.accountExpired}</td>
-                <td>${user.accountLocked}</td>
-                <td>${user.enabled}</td>
-            </tr>
-        </g:each>
-        </tbody>
-    </thead>
-    </table>
-</div>
+<div id="content" role="main">
+    <section class="row colset-2-its">
+        <div id="list-user" class="content scaffold-list" role="main">
+            <h1><g:message code="default.list.label" args="[entityName]"/></h1>
+            <g:if test="${flash.message}">
+                <div class="message" role="status">${flash.message}</div>
+            </g:if>
+        %{--    <f:table collection="${userList}"/>--}%
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Rôle</th>
+                    <th>SaleAds</th>
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${userList}" var="user">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <g:each in="${user.getAuthorities()}" var="authority">
+                            <td><strong>${authority.authority}</strong></td>
+                        </g:each>
+                        <td>
+                            <g:each in="${user.saleAds}" var="saleAd">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <g:link controller="saleAd" action="show" id="${saleAd.id}">
+                                                ${saleAd.title}
+                                            </g:link>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </g:each>
+                        </td>
+                    </tr>
+                </g:each>
+                </tbody>
+            </thead>
+            </table>
+        </div>
 
-<div class="pagination">
-    <g:paginate total="${saleAdCount ?: 0}"/>
+        <div class="pagination">
+            <g:paginate total="${saleAdCount ?: 0}"/>
+        </div>
+    </section>
 </div>
 </body>
 </html>

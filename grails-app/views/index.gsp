@@ -7,83 +7,33 @@
 </head>
 
 <body>
-<content tag="nav">
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-           aria-expanded="false">Application Status <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Environment: ${grails.util.Environment.current.name}</a></li>
-            <li><a href="#">App profile: ${grailsApplication.config.grails?.profile}</a></li>
-            <li><a href="#">App version:
-                <g:meta name="info.app.version"/></a>
-            </li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Grails version:
-                <g:meta name="info.app.grailsVersion"/></a>
-            </li>
-            <li><a href="#">Groovy version: ${GroovySystem.getVersion()}</a></li>
-            <li><a href="#">JVM version: ${System.getProperty('java.version')}</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</a></li>
-        </ul>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-           aria-expanded="false">Artefacts <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Controllers: ${grailsApplication.controllerClasses.size()}</a></li>
-            <li><a href="#">Domains: ${grailsApplication.domainClasses.size()}</a></li>
-            <li><a href="#">Services: ${grailsApplication.serviceClasses.size()}</a></li>
-            <li><a href="#">Tag Libraries: ${grailsApplication.tagLibClasses.size()}</a></li>
-        </ul>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-           aria-expanded="false">Installed Plugins <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-                <li><a href="#">${plugin.name} - ${plugin.version}</a></li>
-            </g:each>
-        </ul>
-    </li>
-</content>
-
+${grailsApplication.config.tpmbds.illustrations.url}nom_image.png
 <div id="content" role="main">
     <section class="row colset-2-its">
         <div id="controllers" role="navigation">
-%{--            <g:each in="${tp.mbds.com.SaleAd.list()}" var="saleAd">--}%
-%{--                <div class="media">--}%
-%{--                    <img class="mr-3" src="${saleAd.illustrations.filename.get(1)}" alt="Illustration">--}%
-
-%{--                    <div class="media-body">--}%
-%{--                        <h5 class="mt-0">--}%
-%{--                            <g:link controller="saleAd" action="show" id="${saleAd.id}">--}%
-%{--                                ${saleAd.title}--}%
-%{--                            </g:link>--}%
-%{--                        </h5>--}%
-%{--                        ${saleAd.price}--}%
-%{--                        ---}%
-%{--                        ${saleAd.description}--}%
-%{--                    </div>--}%
-%{--                </div>--}%
-%{--            </g:each>--}%
+            <h1>Annonces récentes</h1>
             <table>
                 <tbody>
                 <g:each in="${tp.mbds.com.SaleAd.list()}" var="saleAd">
                     <tr>
                         <td>
-                            <img style="width: 100px; height: 150px;" class="mr-3" src="${saleAd.illustrations.filename.get(1)}" alt="Illustration">
+                            <g:link controller="saleAd" action="show" id="${saleAd.id}">
+                                <img style="height: 150px;" class="mr-3" src="${saleAd.illustrations.filename.get(1)}"
+                                     alt="Illustration">
+                            </g:link>
                         </td>
                         <td>
                             <div class="media-body">
-                                <h5 class="mt-0">
+                                <h2>
                                     <g:link controller="saleAd" action="show" id="${saleAd.id}">
                                         ${saleAd.title}
                                     </g:link>
-                                </h5>
-                                ${saleAd.price}
-                                -
-                                ${saleAd.description}
+                                </h2>
+                                <p>
+                                    ${saleAd.price}€
+                                <br>
+                                    ${saleAd.description}
+                                </p>
                             </div>
                         </td>
                     </tr>
