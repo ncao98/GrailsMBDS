@@ -6,7 +6,7 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'tp.mbds.com.Us
 grails.plugin.springsecurity.authority.className = 'tp.mbds.com.Role'
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	[pattern: '/',               access: ['permitAll']],
+	[pattern: '/**',               access: ['permitAll']],
 	[pattern: '/error',          access: ['ROLE_ADMIN','ROLE_MODERATOR']],
 	[pattern: '/index',          access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
@@ -16,7 +16,11 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/css/**',      access: ['ROLE_ADMIN','ROLE_MODERATOR']],
 	[pattern: '/**/images/**',   access: ['ROLE_ADMIN','ROLE_MODERATOR']],
 	[pattern: '/**/favicon.ico', access: ['ROLE_ADMIN','ROLE_MODERATOR']],
-	[pattern: '/saleAd/index',	 access: ['permitAll']]
+	[pattern: '/saleAd/edit',	 access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/user/edit',	 access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/user/index',	 access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/user/show',	 access: ['ROLE_ADMIN','ROLE_MODERATOR']],
+	[pattern: '/user/create',	 access: ['ROLE_ADMIN','ROLE_MODERATOR']],
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
