@@ -74,7 +74,8 @@
                     %{--            </div>--}%
 
                     %{--                <fieldset class="buttons">--}%
-%{--                    TODO: rôle de l'utilisateur--}%
+                    <g:select from="${tpmbds.Role.list()}"
+                              name="role" optionKey="id" optionValue="authority"/>
                     <input class="btn btn-primary" name="create" class="save"
                            value="${message(code: 'default.button.create.label', default: 'Create')}"/>
                 </fieldset>
