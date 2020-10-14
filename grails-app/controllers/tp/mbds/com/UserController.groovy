@@ -62,6 +62,9 @@ class UserController {
             if (params.password != ''){
                 user.password = params.password
             }
+            if (params.username != user.username){
+                user.username = params.username
+            }
             userService.save(user)
         } catch (ValidationException e) {
             respond user.errors, view:'edit'
