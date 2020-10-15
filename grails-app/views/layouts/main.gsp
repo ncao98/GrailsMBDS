@@ -67,7 +67,9 @@
 
 <g:layoutBody/>
 
-<div class="footer" role="contentinfo"></div>
+<div class="footer" role="contentinfo">
+    <p class="text-center">© Lecoincoin <br> Un projet de Nicolas CAO & Vincent GUINALDO, 2020. <br> <a href="https://github.com/ncao98/GrailsMBDS">Projet Grails (MBDS)</a></p>
+</div>
 
 <div id="spinner" class="spinner" style="display:none;">
     <g:message code="spinner.alt" default="Loading&hellip;"/>

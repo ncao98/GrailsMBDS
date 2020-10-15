@@ -1,17 +1,17 @@
 package tp.mbds.com
 
 import grails.validation.ValidationException
+import org.apache.commons.lang.RandomStringUtils
+
 import static org.springframework.http.HttpStatus.*
 
 class SaleAdController {
 
     SaleAdService saleAdService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond saleAdService.list(params), model:[saleAdCount: saleAdService.count()]
+        respond saleAdService.list(params), model: [saleAdCount: saleAdService.count()]
     }
 
     def show(Long id) {
@@ -29,9 +29,24 @@ class SaleAdController {
         }
 
         try {
+            def user = User.get(params.author)
+
+            request.multipartFiles.eachWithIndex {
+                def mfile, int index ->
+                    def f = request.getFile(mfile.key)
+                    String charset = (('A'..'Z') + ('0'..'9')).join()
+                    Integer length = 9
+                    String randomString = RandomStringUtils.random(length, charset.toCharArray())
+                    def file = new File(grailsApplication.config.tpmbds.illustrations.path + randomString +'.png')
+                    f.transferTo(file)
+                    saleAd.addToIllustrations(new Illustration(filename: file.getName()))
+            }
+System.out.println(saleAd)
             saleAdService.save(saleAd)
+            user.addToSaleAds(saleAd)
+            user.save(flush: true, failOnError: true)
         } catch (ValidationException e) {
-            respond saleAd.errors, view:'create'
+            respond saleAd.errors, view: 'create'
             return
         }
 
@@ -48,25 +63,40 @@ class SaleAdController {
         respond saleAdService.get(id)
     }
 
-    def update(SaleAd saleAd) {
+    def update() {
+        def saleAd = SaleAd.get(params.id)
         if (saleAd == null) {
             notFound()
             return
         }
-
         try {
+            request.multipartFiles.eachWithIndex {
+                def mfile, int index ->
+                    def f = request.getFile(mfile.key)
+                    String charset = (('A'..'Z') + ('0'..'9')).join()
+                    Integer length = 9
+                    String randomString = RandomStringUtils.random(length, charset.toCharArray())
+                    def file = new File(grailsApplication.config.tpmbds.illustrations.path + randomString +'.png')
+                    f.transferTo(file)
+                    saleAd.addToIllustrations(new Illustration(filename: file.getName()))
+
+            }
+            saleAd.title = params.title
+            saleAd.description = params.description
+            saleAd.longDescription = params.longDescription
+            saleAd.price = Float.parseFloat(params.price)
+
             saleAdService.save(saleAd)
         } catch (ValidationException e) {
-            respond saleAd.errors, view:'edit'
+            respond saleAd.errors, view: 'edit'
             return
         }
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'saleAd.label', default: 'SaleAd'), saleAd.id])
                 redirect saleAd
             }
-            '*'{ respond saleAd, [status: OK] }
+            '*' { respond saleAd, [status: OK] }
         }
     }
 
@@ -81,9 +111,9 @@ class SaleAdController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'saleAd.label', default: 'SaleAd'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -93,7 +123,7 @@ class SaleAdController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'saleAd.label', default: 'SaleAd'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

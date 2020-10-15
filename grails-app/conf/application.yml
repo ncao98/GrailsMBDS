@@ -132,5 +132,5 @@ server:
 
 tpmbds:
     illustrations:
-        url: http://localhost:8081/tpmbds/assets/
+        url: http://localhost:8081/tpMBDS/assets/
         path: C:/Users/n.cao/IdeaProjects/test/grails-app/assets/images/

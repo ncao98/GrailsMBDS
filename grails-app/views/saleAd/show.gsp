@@ -14,8 +14,9 @@
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
-        <li><g:link class="create" action="create"><g:message code="default.new.label"
-                                                              args="[entityName]"/></g:link></li>
+        <sec:ifLoggedIn>
+            <li><g:link class="create" action="create"><g:message code="default.new.label"
+                                                                  args="[entityName]"/></g:link></li></sec:ifLoggedIn>
     </ul>
 </div>
 
@@ -29,7 +30,12 @@
         <li class="fieldcontain">
             <div class="property-value" aria-labelledby="illustrations-label">
                 <g:each in="${this.saleAd.illustrations}" var="illustration">
-                    <img src="${illustration.filename}" class="d-block w-100" alt="...">
+                    <g:if test="${illustration.filename.startsWith('https://')}">
+                        <img style="width: 200px;" src="${illustration.filename}" class="d-block w-100" alt="...">
+                    </g:if>
+                    <g:else>
+                        <img style="width: 200px;" src="${grailsApplication.config.tpmbds.illustrations.url}${illustration.filename}" class="d-block w-100" alt="...">
+                    </g:else>
                 </g:each>
             </div>
         </li>
@@ -38,6 +44,12 @@
             <span id="price-label" class="property-label">Price</span>
 
             <div class="property-value" aria-labelledby="price-label">${this.saleAd.price}</div>
+        </li>
+
+        <li class="fieldcontain">
+            <span id="description-label" class="property-label">Description</span>
+
+            <div class="property-value" aria-labelledby="description-label">${this.saleAd.description}</div>
         </li>
 
         <li class="fieldcontain">
@@ -57,15 +69,18 @@
         </li>
     </ol>
 %{--${this.saleAd.dump()}--}%
-    <g:form resource="${this.saleAd}" method="DELETE">
-        <fieldset class="buttons">
-            <g:link class="edit" action="edit" resource="${this.saleAd}"><g:message code="default.button.edit.label"
-                                                                                    default="Edit"/></g:link>
-            <input class="delete" type="submit"
-                   value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                   onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-        </fieldset>
-    </g:form>
+    <sec:ifLoggedIn>
+        <g:form resource="${this.saleAd}" method="DELETE">
+            <fieldset class="buttons">
+                <g:link class="edit" action="edit" resource="${this.saleAd}"><g:message
+                        code="default.button.edit.label"
+                        default="Edit"/></g:link>
+                <input class="delete" type="submit"
+                       value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+                       onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+            </fieldset>
+        </g:form>
+    </sec:ifLoggedIn>
 </div>
 </body>
 </html>

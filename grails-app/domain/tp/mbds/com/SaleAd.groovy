@@ -21,5 +21,6 @@ class SaleAd {
 
     static mapping = {
         longDescription type : 'text'
+        messages lazy: false
     }
 }

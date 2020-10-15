@@ -6,8 +6,7 @@ import static org.springframework.http.HttpStatus.*
 class IllustrationController {
 
     IllustrationService illustrationService
-
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    SaleAdService saleAdService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -76,7 +75,10 @@ class IllustrationController {
             return
         }
 
-        illustrationService.delete(id)
+        def illustrationInstance = Illustration.get(id)
+        def saleAdInstance = illustrationInstance.saleAd
+        saleAdInstance.removeFromIllustrations(illustrationInstance)
+        saleAdService.save(saleAdInstance)
 
         request.withFormat {
             form multipartForm {

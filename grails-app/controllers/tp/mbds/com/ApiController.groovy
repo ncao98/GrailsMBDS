@@ -2,7 +2,7 @@ package tp.mbds.com
 
 class ApiController {
 
-    def index() { }
+    def index() {render "ok"}
 
     def saleAd() {
         switch(request.getMethod()) {

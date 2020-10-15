@@ -18,8 +18,15 @@
                     <tr>
                         <td>
                             <g:link controller="saleAd" action="show" id="${saleAd.id}">
-                                <img style="height: 300px;" class="mr-3" src="${saleAd.illustrations.filename[0]}"
-                                     alt="Illustration">
+                                <g:if test="${saleAd.illustrations.filename[0].startsWith('https://')}">
+                                    <img style="width: 200px;" src="${saleAd.illustrations.filename[0]}"
+                                         class="d-block w-100" alt="...">
+                                </g:if>
+                                <g:else>
+                                    <img style="width: 200px;"
+                                         src="${grailsApplication.config.tpmbds.illustrations.url}${saleAd.illustrations.filename[0]}"
+                                         class="d-block w-100" alt="...">
+                                </g:else>
                             </g:link>
                         </td>
                         <td>
@@ -29,9 +36,10 @@
                                         ${saleAd.title}
                                     </g:link>
                                 </h2>
+
                                 <p>
                                     ${saleAd.price}€
-                                <br>
+                                    <br>
                                     ${saleAd.description}
                                 </p>
                             </div>
