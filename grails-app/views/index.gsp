@@ -7,7 +7,7 @@
 </head>
 
 <body>
-${grailsApplication.config.tpmbds.illustrations.url}nom_image.png
+%{--${grailsApplication.config.tpmbds.illustrations.url}nom_image.png--}%
 <div id="content" role="main">
     <section class="row colset-2-its">
         <div id="controllers" role="navigation">
@@ -18,7 +18,7 @@ ${grailsApplication.config.tpmbds.illustrations.url}nom_image.png
                     <tr>
                         <td>
                             <g:link controller="saleAd" action="show" id="${saleAd.id}">
-                                <img style="height: 150px;" class="mr-3" src="${saleAd.illustrations.filename.get(1)}"
+                                <img style="height: 300px;" class="mr-3" src="${saleAd.illustrations.filename[0]}"
                                      alt="Illustration">
                             </g:link>
                         </td>

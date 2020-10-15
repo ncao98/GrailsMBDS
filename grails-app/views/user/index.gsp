@@ -39,7 +39,11 @@
                 <g:each in="${userList}" var="user">
                     <tr>
                         <td>${user.id}</td>
-                        <td>${user.username}</td>
+                        <td>
+                            <g:link controller="user" action="show" id="${user.id}">
+                                ${user.username}
+                            </g:link>
+                        </td>
                         <g:each in="${user.getAuthorities()}" var="authority">
                             <td><strong>${authority.authority}</strong></td>
                         </g:each>
