@@ -41,7 +41,7 @@ class SaleAdController {
                     f.transferTo(file)
                     saleAd.addToIllustrations(new Illustration(filename: file.getName()))
             }
-System.out.println(saleAd)
+
             saleAdService.save(saleAd)
             user.addToSaleAds(saleAd)
             user.save(flush: true, failOnError: true)
